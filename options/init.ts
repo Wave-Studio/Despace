@@ -30,10 +30,10 @@ export default async function Init(args: string[]) {
 		}
 	}
 
-	const shouldMakeCustomConfig = args[2] == "--make";
+	const shouldMakeCustomConfig = args[1] == "--make";
 
-	const filesToLookFor = args[2] != undefined
-		? [args[2]]
+	const filesToLookFor = args[1] != undefined
+		? [args[1]]
 		: ["deno.json", "deno.jsonc"];
 
 	if (filesToLookFor.length < 2) {
@@ -52,7 +52,7 @@ export default async function Init(args: string[]) {
 		shouldMakeCustomConfig
 			? {
 				name: "deno.jsonc",
-				"contents": "",
+				"contents": "{}",
 			}
 			: {
 				name: undefined,
@@ -91,6 +91,7 @@ export default async function Init(args: string[]) {
 		console.error(
 			"\t  Either create a deno.json(c) file, specify one with `despace init <config>`, or use `despace init --make` to create a config file",
 		);
+		Deno.exit(1);
 	}
 
 	const ext = extname(config.name!).substring(1);
@@ -181,6 +182,10 @@ export default async function Init(args: string[]) {
 		await Deno.writeTextFile(
 			"./deno.jsonc",
 			JSON.stringify(newFields, null, 4),
+		);
+
+		console.log(
+			`${prefix} Successfully created a new Deno project with Despace! You can now run \`despace build\` to utilize Despace.`,
 		);
 	} else {
 		if (ext == "json") {

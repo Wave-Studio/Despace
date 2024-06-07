@@ -4,9 +4,14 @@
     "specifiers": {
       "jsr:@std/assert@^0.220.1": "jsr:@std/assert@0.220.1",
       "jsr:@std/assert@^0.221.0": "jsr:@std/assert@0.221.0",
+      "jsr:@std/assert@^0.226.0": "jsr:@std/assert@0.226.0",
       "jsr:@std/fmt": "jsr:@std/fmt@0.221.0",
+      "jsr:@std/fmt@0.225.4": "jsr:@std/fmt@0.225.4",
       "jsr:@std/jsonc": "jsr:@std/jsonc@0.220.1",
-      "jsr:@std/path": "jsr:@std/path@0.221.0"
+      "jsr:@std/jsonc@0.224.2": "jsr:@std/jsonc@0.224.2",
+      "jsr:@std/path": "jsr:@std/path@0.221.0",
+      "jsr:@std/path@0.225.2": "jsr:@std/path@0.225.2",
+      "npm:superjson@1.13.3": "npm:superjson@1.13.3"
     },
     "jsr": {
       "@std/assert@0.220.1": {
@@ -51,13 +56,35 @@
           "jsr:@std/assert@^0.226.0"
         ]
       }
+    },
+    "npm": {
+      "copy-anything@3.0.5": {
+        "integrity": "sha512-yCEafptTtb4bk7GLEQoM8KVJpxAfdBJYaXyzQEgQQQgYrZiDp8SJmGKlYza6CYjEDNstAdNdKA3UuoULlEbS6w==",
+        "dependencies": {
+          "is-what": "is-what@4.1.16"
+        }
+      },
+      "is-what@4.1.16": {
+        "integrity": "sha512-ZhMwEosbFJkA0YhFnNDgTM4ZxDRsS6HqTo7qsZM08fehyRYIYa0yHu5R6mgo1n/8MgaPBXiPimPD77baVFYg+A==",
+        "dependencies": {}
+      },
+      "superjson@1.13.3": {
+        "integrity": "sha512-mJiVjfd2vokfDxsQPOwJ/PtanO87LhpYY88ubI5dUB1Ab58Txbyje3+jpm+/83R/fevaq/107NNhtYBLuoTrFg==",
+        "dependencies": {
+          "copy-anything": "copy-anything@3.0.5"
+        }
+      }
     }
   },
-  "remote": {},
+  "remote": {
+    "https://deno.land/std@0.203.0/dotenv/load.ts": "0636983549b98f29ab75c9a22a42d9723f0a389ece5498fe971e7bb2556a12e2",
+    "https://deno.land/std@0.203.0/dotenv/mod.ts": "1da8c6d0e7f7d8a5c2b19400b763bc11739df24acec235dda7ea2cfd3d300057"
+  },
   "workspace": {
     "dependencies": [
       "jsr:@std/fmt@0.225.4",
-      "jsr:@std/jsonc@0.224.2"
+      "jsr:@std/jsonc@0.224.2",
+      "jsr:@std/path@0.225.2"
     ]
   }
 }
