@@ -1,0 +1,6 @@
+{
+    "imports": {
+        "@mypackage/test": "../test/mod.ts"
+    },
+    "scopes": {}
+}
