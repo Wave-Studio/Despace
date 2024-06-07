@@ -125,7 +125,7 @@ export default async function Init(args: string[]) {
 			"despace:build": "despace build",
 			"despace:dev": "despace build --watch",
 			"despace:update": "despace update",
-			"despace:install": "deno run jsr:@studios/despace",
+			"despace:install": "deno run jsr:@studios/despace install",
 		},
 	};
 

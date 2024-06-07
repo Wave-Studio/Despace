@@ -178,7 +178,7 @@ export default async function Build(args: string[]) {
 					despaceConfig["despace.prependJSR"]
 						? `jsr:${i.name}`
 						: i.name,
-					i.path,
+					normalize(`../${i.path}`),
 				]),
 				...Object.entries(
 					config["despace.imports"] as Record<string, string>,
