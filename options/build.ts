@@ -50,7 +50,7 @@ export default async function Build(args: string[]) {
 		Deno.exit(0);
 	}
 
-	const imports: { name: string; path: string }[] = [];
+	const imports: { name: string; path: string; workspace: boolean }[] = [];
 
 	const recursivelyMapWorkspaces = async (path: string) => {
 		let foundFile = false;
@@ -66,6 +66,7 @@ export default async function Build(args: string[]) {
 					name?: string;
 					exports?: string | Record<string, string>;
 					workspaces?: string[];
+					imports?: Record<string, string>;
 				};
 
 				foundFile = true;
@@ -101,6 +102,7 @@ export default async function Build(args: string[]) {
 								join(path, parsed.exports as string),
 							),
 						),
+						workspace: true,
 					});
 				} else {
 					// Multiple exports
@@ -117,13 +119,44 @@ export default async function Build(args: string[]) {
 									join(path, filePath),
 								),
 							),
+							workspace: true,
 						});
 					}
 				}
 
-				// if (parsed.imports != undefined) {
+				if (parsed.imports != undefined) {
+					for (
+						const [name, importPath] of Object.entries(
+							parsed.imports,
+						)
+					) {
+						try {
+							await Deno.stat(join(path, importPath));
 
-				// }
+							imports.push({
+								name,
+								path: normalize(
+									relative(
+										cwd,
+										join(path, importPath),
+									),
+								),
+								workspace: false,
+							});
+						} catch {
+							imports.push({
+								name,
+								path: normalize(
+									relative(
+										cwd,
+										join(path, path),
+									),
+								),
+								workspace: false,
+							});
+						}
+					}
+				}
 
 				if (parsed.workspaces != undefined) {
 					for (const workspace of parsed.workspaces) {
@@ -175,7 +208,7 @@ export default async function Build(args: string[]) {
 				...imports.map((
 					i,
 				) => [
-					despaceConfig["despace.prependJSR"]
+					despaceConfig["despace.prependJSR"] && i.workspace
 						? `jsr:${i.name}`
 						: i.name,
 					`../${i.path}`.replaceAll("\\", "/"),

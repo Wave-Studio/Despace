@@ -1,7 +1,0 @@
-{
-	"deno.enable": true,
-	"deno.unstable": true,
-	"deno.lint": true,
-	"deno.config": "./deno.jsonc",
-	"workbench.iconTheme": "vscode-icons"
-}
