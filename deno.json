@@ -1,0 +1,37 @@
+{
+	"name": "@studios/despace",
+	"description": "A CLI utility for polyfilling Deno's workspace feature while it's still in development",
+	"version": "0.1.0",
+	"exports": "./cli.ts",
+	"fmt": {
+		"indentWidth": 4,
+		"useTabs": true,
+		"lineWidth": 80,
+		"proseWrap": "preserve",
+		"semiColons": true,
+		"singleQuote": false
+	},
+	"lint": {
+		"rules": {
+			"include": [
+				"recomended"
+			]
+		}
+	},
+	"tasks": {
+		"fmt": "deno fmt",
+		"lint": "deno lint"
+	},
+	"imports": {
+		"jsr:@std/fmt/colors": "jsr:@std/fmt@0.225.4/colors",
+		"jsr:@std/jsonc": "jsr:@std/jsonc@0.224.2",
+		"jsr:@std/path": "jsr:@std/path@0.225.2"
+	},
+	"publish": {
+		"exclude": [
+			".github",
+			".vscode",
+			"publish"
+		]
+	}
+}

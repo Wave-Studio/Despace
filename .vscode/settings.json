@@ -1,0 +1,11 @@
+{
+	"deno.enable": true,
+	"deno.unstable": true,
+	"deno.lint": true,
+	"deno.config": "./deno.json",
+	"editor.defaultFormatter": "denoland.vscode-deno",
+	"[typescript]": {
+		"editor.defaultFormatter": "denoland.vscode-deno"
+	},
+	"workbench.iconTheme": "vscode-icons"
+}
