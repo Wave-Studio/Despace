@@ -67,6 +67,7 @@ export default async function Build(args: string[]) {
 					exports?: string | Record<string, string>;
 					workspaces?: string[];
 					imports?: Record<string, string>;
+					importMap?: string;
 				};
 
 				foundFile = true;
@@ -124,10 +125,27 @@ export default async function Build(args: string[]) {
 					}
 				}
 
-				if (parsed.imports != undefined) {
+				if (parsed.imports != undefined || parsed.importMap != undefined) {
+					let moduleImports = parsed.imports ?? {};
+
+					if (parsed.importMap != undefined) {
+						const importMap = await Deno.readTextFile(
+							join(path, parsed.importMap),
+						);
+
+						const parsedImportMap = parse(importMap, {
+							allowTrailingComma: true,
+						}) as { imports: Record<string, string> };
+
+						moduleImports = {
+							...moduleImports,
+							...parsedImportMap.imports,
+						};
+					}
+
 					for (
 						const [name, importPath] of Object.entries(
-							parsed.imports,
+							moduleImports,
 						)
 					) {
 						try {
