@@ -125,7 +125,9 @@ export default async function Build(args: string[]) {
 					}
 				}
 
-				if (parsed.imports != undefined || parsed.importMap != undefined) {
+				if (
+					parsed.imports != undefined || parsed.importMap != undefined
+				) {
 					let moduleImports = parsed.imports ?? {};
 
 					if (parsed.importMap != undefined) {
@@ -259,7 +261,7 @@ export default async function Build(args: string[]) {
 				for (const file of event.paths) {
 					const path = relative(cwd, file);
 					if (
-						path.startsWith(".despace") ||
+						path == ".despace/config.json" ||
 						path.endsWith("deno.jsonc") ||
 						path.endsWith("deno.json") ||
 						path == despaceConfig["despace.configSource"]
