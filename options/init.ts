@@ -241,7 +241,7 @@ export default async function Init(args: string[]) {
 				JSON.stringify(newFields, null, 4),
 			);
 			console.log(
-				`${prefix} Generated files for Despace in JSONC format. The following is how you can import Despace into your configuration file: \nt `,
+				`${prefix} Generated files for Despace in JSONC format. The following is how you can import Despace into your configuration file: \n\t `,
 				[
 					"- Copy the contents of \`deno.part.jsonc\` into your config file.",
 					"- Transfer the contents of \`imports\` inside your config file to \`despace.imports\` and remove the \`imports\` field.",
