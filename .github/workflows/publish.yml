@@ -21,5 +21,5 @@ jobs:
         with:
           deno-version: v1.x
         
-      - name: Publish Fresh
+      - name: Publish Despace
         run: deno publish
