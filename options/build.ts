@@ -87,7 +87,7 @@ export default async function Build(args: string[]) {
 				if (parsed.exports == undefined) {
 					console.warn(
 						`${prefix} ${
-							yellow(`No exports found in ${config.name}.`)
+							yellow(`No exports found in ${parsed.name}.`)
 						}`,
 					);
 					continue;
@@ -150,30 +150,42 @@ export default async function Build(args: string[]) {
 							moduleImports,
 						)
 					) {
-						try {
-							await Deno.stat(join(path, importPath));
+						if (
+							["http", "jsr:", "npm:"].some((p) =>
+								importPath.startsWith(p)
+							)
+						) {
+							imports.push({
+								name,
+								path: importPath,
+								workspace: false,
+							});
+						} else {
+							try {
+								await Deno.stat(join(path, importPath));
 
-							imports.push({
-								name,
-								path: normalize(
-									relative(
-										cwd,
-										join(path, importPath),
+								imports.push({
+									name,
+									path: normalize(
+										relative(
+											cwd,
+											join(path, importPath),
+										),
 									),
-								),
-								workspace: false,
-							});
-						} catch {
-							imports.push({
-								name,
-								path: normalize(
-									relative(
-										cwd,
-										join(path, path),
+									workspace: false,
+								});
+							} catch {
+								imports.push({
+									name,
+									path: normalize(
+										relative(
+											cwd,
+											join(path, path),
+										),
 									),
-								),
-								workspace: false,
-							});
+									workspace: false,
+								});
+							}
 						}
 					}
 				}
@@ -231,7 +243,10 @@ export default async function Build(args: string[]) {
 					despaceConfig["despace.prependJSR"] && i.workspace
 						? `jsr:${i.name}`
 						: i.name,
-					`../${i.path}`.replaceAll("\\", "/"),
+
+					["http", "jsr:", "npm:"].some((p) => i.path.startsWith(p))
+						? i.path
+						: `../${i.path}`.replaceAll("\\", "/"),
 				]),
 				...Object.entries(
 					config["despace.imports"] as Record<string, string>,
