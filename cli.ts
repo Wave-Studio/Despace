@@ -1,4 +1,4 @@
-import { gray } from "jsr:@std/fmt/colors";
+import { gray, yellow } from "jsr:@std/fmt/colors";
 import denoConfig from "./deno.json" with { type: "json" };
 import Init from "./options/init.ts";
 import Install from "./options/install.ts";
@@ -7,6 +7,14 @@ import Build from "./options/build.ts";
 const args = Deno.args.map((a) => a.toLowerCase());
 
 const prefix = gray("[Despace]");
+
+console.warn(
+	`${prefix} ${
+		yellow(
+			"Despace is now deprecated in favor of Deno's built in workspace support.",
+		)
+	}`,
+);
 
 switch (args[0]) {
 	case "init": {
